@@ -34,6 +34,14 @@ jobs:
         run: |
           echo "$KEY" | sed 's/./& /g'
           
+      - name: Base64 secret to file
+        uses: davidSchuppa/base64Secret-toFile-action@v2
+        with:
+          secret: ${{ secrets.PRIVATEKEY }}
+          filename: "privatekey.key"
+          destination-path: "${HOME}"
+        run: echo "$(${HOME}/privatekey.key )"
+          
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
