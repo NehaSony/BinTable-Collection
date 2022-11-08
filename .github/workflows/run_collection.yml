@@ -37,5 +37,5 @@ jobs:
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: $DEC_VAL
+          envVar: $(echo ${{ secrets.ENVIR }} | base64)
           collection: BinTableResource.postman_collection.json
