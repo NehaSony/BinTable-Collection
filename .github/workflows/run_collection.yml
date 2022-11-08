@@ -37,7 +37,7 @@ jobs:
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: $value
+          envVar: ${{ secrets.ENVVAR }}
           collection: BinTableResource.postman_collection.json
           
       - name: Cleanup 
