@@ -27,5 +27,5 @@ jobs:
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: '${{ secrets.ENVVAR }}'
+          envVar: '[{ "key": "baseUrl", "value": "${{ secrets.BASEURL }}" }]'
           collection: BinTableResource.postman_collection.json
