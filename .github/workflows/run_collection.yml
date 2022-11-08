@@ -19,8 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     env:
-          ENC_VAL: ${{ secrets.ENVVIR }}
-          DEC_VAL: ${{ secrets.ENVVIR }}
+          ENC_VAL: ${{ secrets.ENVIR }}
+          DEC_VAL: ${{ secrets.ENVIR }}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
