@@ -26,7 +26,8 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Test
-        run: env.DEC_VAL=$(echo $ENC_VAL|base64 --decode)
+        run: echo $DEC_VAL
+             $DEC_VAL=$(echo $ENC_VAL|base64 --decode)
              echo "ENC_VAL (base64) = $(DEC_VAL)"
 
       # Runs a single command using the runners shell
