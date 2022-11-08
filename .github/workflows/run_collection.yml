@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Read file
-        run: export encVal = ${{ secrets.ENVVIR }}
+        run: export encVal=${{ secrets.ENVVIR }}
         
       - name: Test read
         run: echo encVal
