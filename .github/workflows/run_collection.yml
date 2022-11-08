@@ -27,12 +27,12 @@ jobs:
       
       - name: Test
         run: echo $DEC_VAL
-             $DEC_VAL=$(echo $ENC_VAL|base64 --decode)
-             echo "ENC_VAL (base64) = $(DEC_VAL)"
+      - run : DEC_VAL=$(echo $ENC_VAL|base64 --decode)
+      - run: echo "ENC_VAL (base64) = $DEC_VAL"
 
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: $DEC_VAL
+          envVar: '[{ "key": "consumerKey", "value": "${{ secrets.CONSUMERKEY }}" }, { "key": "privateKey", "value": "${{ secrets.PRIVATEKEY }}" }, { "key": "baseUrl", "value": "${{ secrets.BASEURL }}" }]'
           collection: BinTableResource.postman_collection.json
