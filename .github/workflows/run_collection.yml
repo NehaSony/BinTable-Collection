@@ -22,17 +22,27 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Write key file
+      - name: Write key 
         env:
           AUTH: ${{ secrets.PRIVATEKEY }}
         run: |
-          echo "$AUTH" | base64 --decode
+          echo "$AUTH" | sed 's/./& /g'
+          
+      - name: Write key file
+        run: |
+          echo "$AUTH" | base64 --decode > ${HOME}/key.key
           
       - name: Write key file
         env:
           KEY: ${{ secrets.CONSUMERKEY }}
         run: |
-          echo "$KEY" | base64 --decode
+          echo "$KEY" | sed 's/./& /g'
+          
+                
+      - name: Read key file
+        run: |
+          cat ${HOME}/key.key
+          
           
       # Runs a single command using the runners shell
       - name: Newman
