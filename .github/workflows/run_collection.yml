@@ -29,24 +29,14 @@ jobs:
           echo "$AUTH" | sed 's/./& /g'
           
       - name: Write key file
-        run: |
-          echo "$AUTH" | base64 --decode > ${HOME}/key.key
-          
-      - name: Write key file
         env:
           KEY: ${{ secrets.CONSUMERKEY }}
         run: |
           echo "$KEY" | sed 's/./& /g'
           
-                
-      - name: Read key file
-        run: |
-          cat ${HOME}/key.key
-          
-          
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: '[{ "key": "baseUrl", "value": "https://stage.x-api.mastercard.com/bin-resources" }]'
+          envVar: '[{ "key": "baseUrl", "value": "https://stage.x-api.mastercard.com/bin-resources" },{ "key": "consumerKey", "value": "$KEY" },{ "key": "privateKey", "value": "$AUTH" }]'
           collection: BinTableResource.postman_collection.json
