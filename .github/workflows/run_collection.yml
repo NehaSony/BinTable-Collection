@@ -18,27 +18,24 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+          ENC_VAL: ${{ secrets.ENVVIR }}
+          DEC_VAL: ${{ secrets.ENVVIR }}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Read file
-        uses: actions/checkout@v3
-        env:
-          ENC_VAL: ${{ secrets.ENVVIR }}
-    
       - name: Test
-        run: echo "ENC_VAL    = ${ENC_VAL}"
-             echo "ENC_VAL (base64) = $(echo ${ENC_VALD} | base64)"
+        run: echo "ENC_VAL   = $ENC_VAL"
+             echo "ENC_VAL (base64) = $(echo $ENC_VAL | base64)"
         
       - name: Decrypt val
-        uses: actions/checkout@v3
-        env:
-          DEC_VAL: $(echo ${ENC_VALD} | base64
+        run: DEC_VAL=$(echo $ENC_VAL | base64)
+          echo $DEC_VAL
 
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: ${DEC_VAL}
+          envVar: $DEC_VAL
           collection: BinTableResource.postman_collection.json
