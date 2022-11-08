@@ -1,0 +1,641 @@
+{
+	"info": {
+		"_postman_id": "35deffd8-1acb-4cfb-a6a7-189b4f871338",
+		"name": "BinTableResource",
+		"description": "Bin Resource API\n\nCustomers can retrieve account range information in an easy to access API that powers automated integrations without depending on acquiring partners.\nThe API enables multiple use cases including; payment routing decisioning, improved decline logic, benefits validation, and issuer/product identification.\nCustomers of the API also benefit from daily updates, which ensures their BIN information is always in sync with the latest updates.\n\nCustomers can perform the following operations:\n  - Fetch paginated list of Bin Resource\n  - Perform search based on fields\n  - Perform search based on PAN\n\n\nContact Support:\n Name: API Support\n Email: apisupport@mastercard.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Bin Account Ranges",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code: 200\", () => {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"pm.collectionVariables.set(\"bin\",pm.response.json().items[0].lowAccountRange);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/bin-ranges",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bin-ranges"
+					]
+				},
+				"description": "Retrieve a list of all account range information"
+			},
+			"response": [
+				{
+					"name": "Invalid or insufficient parameters supplied",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-ranges",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-ranges"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"BAD_REQUEST\",\n        \"Description\": \"Not all mandatory parameters are supplied or sent incorrectly.\",\n        \"Recoverable\": false,\n        \"Details\": \"The value of parameter 'sort' is invalid.\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "Insufficient permissions for interacting with the resource",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-ranges",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-ranges"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"PERMISSION_DENIED\",\n        \"Description\": \"You don't seem authorized to do that\",\n        \"Recoverable\": false,\n        \"Details\": \"The resource was processed and can't be updated anymore\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "Authentication information was missing or invalid",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-ranges",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-ranges"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"UNAUTHORIZED\",\n        \"Description\": \"We couldn't recognize you\",\n        \"Recoverable\": false,\n        \"Details\": \"Full authentication is required to access this resource. See also: https://mstr.cd/31YcrTi\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "The URI didn't match an existing resource",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-ranges",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-ranges"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"NOT_FOUND\",\n        \"Description\": \"Invalid BIN format, please ensure there are no spaces used\",\n        \"Recoverable\": false,\n        \"Details\": \"BIN '131 840' doesn't exist\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "Bin Resource response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-ranges",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-ranges"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"currentPageNumber\": 1,\n  \"currentPageSize\": 2,\n  \"totalPages\": 76,\n  \"totalRecords\": 152,\n  \"transmissionDate\": \"1664854200\",\n  \"items\": [\n    {\n      \"lowAccountRange\": 2229293150000000000,\n      \"highAccountRange\": 2229293200000000000,\n      \"acceptanceBrand\": \"MCC\",\n      \"ica\": \"00000023460\",\n      \"customerName\": \"TRIPLINK INTERNATIONAL CO.,LIMITED\",\n      \"country\": \"344\",\n      \"localUse\": false,\n      \"authorizationOnly\": false,\n      \"productCode\": \"MCO\",\n      \"productDescription\": \"MASTERCARD CORPORATE\",\n      \"nonReloadableIndicator\": false,\n      \"anonymousPrepaidIndicator\": \"N\",\n      \"programName\": null,\n      \"vertical\": null\n    },\n    {\n      \"lowAccountRange\": 2184415000000000000,\n      \"highAccountRange\": 2184416000000000000,\n      \"acceptanceBrand\": \"MSI\",\n      \"ica\": \"00000002535\",\n      \"customerName\": \"MASTERCARD - MDS FOR EUROPE DEBIT ACQUIRER & NON-EUROPEAN DEBIT ISSUER\",\n      \"country\": \"840\",\n      \"localUse\": false,\n      \"authorizationOnly\": false,\n      \"productCode\": \"MSI\",\n      \"productDescription\": \"MAESTRO\",\n      \"nonReloadableIndicator\": false,\n      \"anonymousPrepaidIndicator\": \"N\",\n      \"programName\": null,\n      \"vertical\": null\n    }\n  ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Search Bin Account Ranges",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"pm.test(\"Status code: 200\", () => {",
+							"  pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"key\": \"lowAccountRange\",\n        \"value\": {{bin}}\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/bin-ranges/bin-searches",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bin-ranges",
+						"bin-searches"
+					]
+				},
+				"description": "Filter all account range information by providing specific values you wish to occur within an account range's data"
+			},
+			"response": [
+				{
+					"name": "Invalid or insufficient parameters supplied",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-searches"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"BAD_REQUEST\",\n        \"Description\": \"Not all mandatory parameters are supplied or sent incorrectly.\",\n        \"Recoverable\": false,\n        \"Details\": \"The value of parameter 'sort' is invalid.\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "Insufficient permissions for interacting with the resource",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-searches"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"PERMISSION_DENIED\",\n        \"Description\": \"You don't seem authorized to do that\",\n        \"Recoverable\": false,\n        \"Details\": \"The resource was processed and can't be updated anymore\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "Authentication information was missing or invalid",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-searches"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"UNAUTHORIZED\",\n        \"Description\": \"We couldn't recognize you\",\n        \"Recoverable\": false,\n        \"Details\": \"Full authentication is required to access this resource. See also: https://mstr.cd/31YcrTi\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "The URI didn't match an existing resource",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-searches"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"NOT_FOUND\",\n        \"Description\": \"Invalid BIN format, please ensure there are no spaces used\",\n        \"Recoverable\": false,\n        \"Details\": \"BIN '131 840' doesn't exist\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "BIN Search response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bin-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bin-searches"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"currentPageNumber\": 1,\n  \"currentPageSize\": 2,\n  \"totalPages\": 76,\n  \"totalRecords\": 152,\n  \"transmissionDate\": \"1664854200\",\n  \"items\": [\n    {\n      \"lowAccountRange\": 2229293150000000000,\n      \"highAccountRange\": 2229293200000000000,\n      \"acceptanceBrand\": \"MCC\",\n      \"ica\": \"00000023460\",\n      \"customerName\": \"TRIPLINK INTERNATIONAL CO.,LIMITED\",\n      \"country\": \"344\",\n      \"localUse\": false,\n      \"authorizationOnly\": false,\n      \"productCode\": \"MCO\",\n      \"productDescription\": \"MASTERCARD CORPORATE\",\n      \"nonReloadableIndicator\": false,\n      \"anonymousPrepaidIndicator\": \"N\",\n      \"programName\": null,\n      \"vertical\": null\n    },\n    {\n      \"lowAccountRange\": 2184415000000000000,\n      \"highAccountRange\": 2184416000000000000,\n      \"acceptanceBrand\": \"MSI\",\n      \"ica\": \"00000002535\",\n      \"customerName\": \"MASTERCARD - MDS FOR EUROPE DEBIT ACQUIRER & NON-EUROPEAN DEBIT ISSUER\",\n      \"country\": \"840\",\n      \"localUse\": false,\n      \"authorizationOnly\": false,\n      \"productCode\": \"MSI\",\n      \"productDescription\": \"MAESTRO\",\n      \"nonReloadableIndicator\": false,\n      \"anonymousPrepaidIndicator\": \"N\",\n      \"programName\": null,\n      \"vertical\": null\n    }\n  ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Search Bin Resource by 8 Digit BIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"pm.test(\"Status code: 200\", () => {",
+							"  pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bin\": {{bin}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/bin-ranges/account-searches",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bin-ranges",
+						"account-searches"
+					]
+				},
+				"description": "Find a specific account range by providing an 8 digit BIN"
+			},
+			"response": [
+				{
+					"name": "The URI didn't match an existing resource",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/pan-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pan-searches"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"NOT_FOUND\",\n        \"Description\": \"Invalid BIN format, please ensure there are no spaces used\",\n        \"Recoverable\": false,\n        \"Details\": \"BIN '131 840' doesn't exist\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "Insufficient permissions for interacting with the resource",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/pan-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pan-searches"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"PERMISSION_DENIED\",\n        \"Description\": \"You don't seem authorized to do that\",\n        \"Recoverable\": false,\n        \"Details\": \"The resource was processed and can't be updated anymore\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "Pan Search response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/pan-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pan-searches"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"lowAccountRange\": 2229293150000000000,\n  \"highAccountRange\": 2229293200000000000,\n  \"acceptanceBrand\": \"MCC\",\n  \"ica\": \"00000023460\",\n  \"customerName\": \"TRIPLINK INTERNATIONAL CO.,LIMITED\",\n  \"country\": \"344\",\n  \"localUse\": false,\n  \"authorizationOnly\": false,\n  \"productCode\": \"MCO\",\n  \"productDescription\": \"MASTERCARD CORPORATE\",\n  \"nonReloadableIndicator\": false,\n  \"anonymousPrepaidIndicator\": \"N\",\n  \"programName\": null,\n  \"vertical\": null\n}"
+				},
+				{
+					"name": "Authentication information was missing or invalid",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/pan-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pan-searches"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"UNAUTHORIZED\",\n        \"Description\": \"We couldn't recognize you\",\n        \"Recoverable\": false,\n        \"Details\": \"Full authentication is required to access this resource. See also: https://mstr.cd/31YcrTi\"\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "Invalid or insufficient parameters supplied",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/pan-searches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pan-searches"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Source\": \"BINTABLE_API\",\n        \"ReasonCode\": \"BAD_REQUEST\",\n        \"Description\": \"Not all mandatory parameters are supplied or sent incorrectly.\",\n        \"Recoverable\": false,\n        \"Details\": \"The value of parameter 'sort' is invalid.\"\n      }\n    ]\n  }\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth1",
+		"oauth1": [
+			{
+				"key": "privateKey",
+				"value": "{{privateKey}}",
+				"type": "string"
+			},
+			{
+				"key": "consumerKey",
+				"value": "{{consumerKey}}",
+				"type": "string"
+			},
+			{
+				"key": "includeBodyHash",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "addParamsToHeader",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "signatureMethod",
+				"value": "RSA-SHA256",
+				"type": "string"
+			},
+			{
+				"key": "disableHeaderEncoding",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "addEmptyParamsToSign",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "version",
+				"value": "1.0",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"key": "bin",
+			"value": ""
+		},
+		{
+			"key": "privateKey",
+			"value": ""
+		},
+		{
+			"key": "consumerKey",
+			"value": ""
+		}
+	]
+}
