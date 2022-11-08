@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: RunCollection
 
 # Controls when the workflow will run
@@ -29,5 +27,5 @@ jobs:
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: '[{ "key": "baseUrl", "value": "https://stage.x-api.mastercard.com/bin-resources" } ]'
+          envVar: '[{ "key": "baseUrl", "value": "https://stage.x-api.mastercard.com/bin-resources" },{ "key": "consumerKey", "value": "${{ secrets.CONSUMERKEY }}" },{ "key": "privateKey", "value": "${{ secrets.PRIVATEKEY }}" } ]'
           collection: BinTableResource.postman_collection.json
