@@ -24,8 +24,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Create annotation for build error
-        run: echo "::error file "
-          echo ${{ secrets.CONSUMERKEY }}
+        run: echo "::error file " ${{ secrets.CONSUMERKEY }} ${{bla}}
 
       # Runs a single command using the runners shell
       - name: Newman
@@ -33,3 +32,4 @@ jobs:
         with:
           envVar: '[{ "key": "baseUrl", "value": "https://stage.x-api.mastercard.com/bin-resources" },{ "key": "consumerKey", "value": "${{ secrets.CONSUMERKEY }}" },{ "key": "privateKey", "value": "${{ secrets.PRIVATEKEY }}" } ]'
           collection: BinTableResource.postman_collection.json
+        run: echo ${{envVar}}
