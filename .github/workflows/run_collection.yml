@@ -34,9 +34,21 @@ jobs:
         run: |
           echo "$KEY" 
           
+      - name: Write key file
+        env:
+          AUTH1: ${{ secrets.ENVVAR }}
+        run: |
+          echo "$AUTH1" | base64 --decode > ${HOME}/key.json
+          
+      - name: Read file
+        run: echo -n `cat file.txt` | 
+
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
           envVar: '[{ "key": "baseUrl", "value": "https://stage.x-api.mastercard.com/bin-resources" },{ "key": "consumerKey", "value": "$KEY" },{ "key": "privateKey", "value": "$AUTH" }]'
           collection: BinTableResource.postman_collection.json
+          
+      - name: Cleanup 
+        run: rm ${HOME/key.json}
