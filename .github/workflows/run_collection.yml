@@ -30,12 +30,13 @@ jobs:
              echo "ENC_VAL (base64) = $(echo $ENC_VAL | base64)"
         
       - name: Decrypt val
-        run: DEC_VAL=$(echo $ENC_VAL | base64)
-          echo $DEC_VAL
+        env: 
+          DEC_VAL: $(echo $ENC_VAL | base64)
+        run: echo DEC_VAL
 
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: ${{ secrets.ENVVAR }}
+          envVar: $DEC_VAL
           collection: BinTableResource.postman_collection.json
