@@ -30,23 +30,14 @@ jobs:
           encodedString: ${{ secrets.ENVVAR }}
           
       - name: Read file
-        run: echo 'cat keys.json'
+        run: value="$(cat keys.json)" | echo $value
           
-      - name: Read file
-        run: echo -n 'cat keys.json' | sha256sum 
-        
-      - name: Write key 
-        env:
-          AUTH: ${{ secrets.ENVVAR }}
-        run: |
-          AUTH='cat keys.json'
-          echo "$AUTH"
 
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: '[{ "key": "baseUrl", "value": "https://stage.x-api.mastercard.com/bin-resources" },{ "key": "consumerKey", "value": "$KEY" },{ "key": "privateKey", "value": "$AUTH" }]'
+          envVar: $value
           collection: BinTableResource.postman_collection.json
           
       - name: Cleanup 
