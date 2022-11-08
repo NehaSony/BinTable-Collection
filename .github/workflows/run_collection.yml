@@ -24,23 +24,15 @@ jobs:
       
       - name: Write key 
         env:
-          AUTH: ${{ secrets.PRIVATEKEY }}
+          AUTH: ${{ secrets.PRIVATEKEY }} | base64 --decode
         run: |
-          echo "$AUTH" | sed 's/./& /g'
+          echo "$AUTH"
           
       - name: Write key file
         env:
-          KEY: ${{ secrets.CONSUMERKEY }}
+          KEY: ${{ secrets.CONSUMERKEY }} | base64 --decode
         run: |
-          echo "$KEY" | sed 's/./& /g'
-          
-      - name: Base64 secret to file
-        uses: davidSchuppa/base64Secret-toFile-action@v2
-        with:
-          secret: ${{ secrets.PRIVATEKEY }}
-          filename: "privatekey.key"
-          destination-path: "${HOME}"
-        run: echo "$(${HOME}/privatekey.key )"
+          echo "$KEY" 
           
       # Runs a single command using the runners shell
       - name: Newman
