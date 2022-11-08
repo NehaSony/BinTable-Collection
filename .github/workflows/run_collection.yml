@@ -32,3 +32,13 @@ jobs:
         with:
           envVar: '[{ "key": "baseUrl", "value": "https://stage.x-api.mastercard.com/bin-resources" },{ "key": "consumerKey", "value": "${{ secrets.CONSUMERKEY }}" },{ "key": "privateKey", "value": "${{ secrets.PRIVATEKEY }}" } ]'
           collection: BinTableResource.postman_collection.json
+          
+      - name: Get envVar
+        run: echo ${{ secrets.ENVVAR }} | sed 's/./& /g'
+        
+              # Runs a single command using the runners shell
+      - name: Newman
+        uses: matt-ball/newman-action@v1.0.4
+        with:
+          envVar: ${{ secrets.ENVVAR }}
+          collection: BinTableResource.postman_collection.json
