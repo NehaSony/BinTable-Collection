@@ -22,26 +22,25 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Write key 
-        env:
-          AUTH: ${{ secrets.PRIVATEKEY }} | base64 --decode
-        run: |
-          echo "$AUTH"
-          
-      - name: Write key file
-        env:
-          KEY: ${{ secrets.CONSUMERKEY }} | base64 --decode
-        run: |
-          echo "$KEY" 
-          
-      - name: Write key file
-        env:
-          AUTH1: ${{ secrets.ENVVAR }}
-        run: |
-          echo "$AUTH1" | base64 --decode > ${HOME}/key.json
+      - name: Run Workflow
+        id: write_file
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: 'keys.json'
+          encodedString: ${{ secrets.ENVVAR }}
           
       - name: Read file
-        run: echo -n `cat file.txt` | 
+        run: echo 'cat keys.json'
+          
+      - name: Read file
+        run: echo -n 'cat keys.json' | sha256sum 
+        
+      - name: Write key 
+        env:
+          AUTH: ${{ secrets.ENVVAR }}
+        run: |
+          AUTH='cat keys.json'
+          echo "$AUTH"
 
       # Runs a single command using the runners shell
       - name: Newman
