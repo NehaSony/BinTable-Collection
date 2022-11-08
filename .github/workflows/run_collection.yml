@@ -27,5 +27,5 @@ jobs:
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: '[{ "key": "baseUrl", "value": "https://stage.x-api.mastercard.com/bin-resources" }]'
+          envVar: '[{ "key": "baseUrl", "value": "${{secrets.BASEURL}}" }]'
           collection: BinTableResource.postman_collection.json
