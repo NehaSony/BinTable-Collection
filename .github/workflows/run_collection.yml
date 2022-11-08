@@ -22,22 +22,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Run Workflow
-        id: write_file
-        uses: timheuer/base64-to-file@v1.2
-        with:
-          fileName: 'keys.json'
-          encodedString: ${{ secrets.ENVVAR }}
-          
       - name: Read file
-        run: value="$(cat keys.json)" | echo $value
+        run: value=echo ${{ secrets.ENVVIR }} |  base64 --decode
+        
+      - name: test val
+        run: echo $value
           
 
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: ${{ secrets.ENVVAR }}
+          envVar: $value
           collection: BinTableResource.postman_collection.json
           
       - name: Cleanup 
