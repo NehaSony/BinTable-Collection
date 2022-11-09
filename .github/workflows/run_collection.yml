@@ -36,8 +36,8 @@ jobs:
 #       - run: echo $DEC_VAL | sed 's/./& /g'
 #       - run: echo $(echo $ENC_VAL|base64 --decode) | sed 's/./& /g'
       - run: echo $ENC_VAL|base64 --decode > $HOME/key.txt
-      - run: cat $HOME/key.txt
-      - run: DEC_VAL=$(cat $HOME/key.txt)
+      - run: cat $HOME/key.json
+      - run: DEC_VAL=$(cat $HOME/key.json)
       - run: echo $DEV_VAL
       
 
@@ -45,5 +45,5 @@ jobs:
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: $(cat $HOME/key.json)
+          iterationData: $HOME/key.json
           collection: BinTableResource.postman_collection.json
