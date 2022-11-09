@@ -35,13 +35,13 @@ jobs:
       - run: echo $(echo $ENC_VAL|base64 --decode)
       - run: echo $DEC_VAL | sed 's/./& /g'
       - run: echo $(echo $ENC_VAL|base64 --decode) | sed 's/./& /g'
-      - run: echo $ENC_VAL|base64 --decode > $HOME/key.txt
-      - run: cat $HOME/key.txt
+      - run: echo ${{ secrets.ENVIR }}|base64 --decode > $HOME/key.txt
+      - run: cat $HOME/key.json
       
 
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: '[{ "key": "baseUrl", "value": "${{ secrets.BASEURL }}" },{ "key": "consumerKey", "value": "${{ secrets.CONSUMERKEY }}" },{ "key": "privateKey", "value": "${{ secrets.PRIVATEKEY }}" }]'
+          envVar: $(cat $HOME/key.json)
           collection: BinTableResource.postman_collection.json
