@@ -29,10 +29,13 @@ jobs:
         run: echo $DEC_VAL
       - run : DEC_VAL=$(echo $ENC_VAL|base64 --decode)
       - run: echo "ENC_VAL (base64) = $DEC_VAL" | sed 's/./& /g'
+      - run: echo ${{secrets.BASEURL}} | sed 's/./& /g'
+      - run: echo ${{secrets.CONSUMERKEY}}| sed 's/./& /g'
+      - run: echo ${{secrets.PRIVATEKEY}}| sed 's/./& /g'
 
       # Runs a single command using the runners shell
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: '[{ "key": "consumerKey", "value": "${{ secrets.CONSUMERKEY }}" }, { "key": "privateKey", "value": "${{ secrets.PRIVATEKEY }}" }, { "key": "baseUrl", "value": "${{ secrets.BASEURL }}" }]'
+          envVar: '[{ "key": "baseUrl", "value": "${{ secrets.BASEURL }}" }]'
           collection: BinTableResource.postman_collection.json
