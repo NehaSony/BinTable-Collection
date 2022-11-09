@@ -39,6 +39,7 @@ jobs:
       - run: cat $HOME/key.json
       - run: DEC_VAL=$(cat $HOME/key.json)
       - run: echo $DEV_VAL
+      - run: echo $HOME
       
 
       # Runs a single command using the runners shell
