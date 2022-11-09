@@ -46,5 +46,5 @@ jobs:
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          iterationData: /Users/runner/key.json
+          environment: /Users/runner/key.json
           collection: BinTableResource.postman_collection.json
