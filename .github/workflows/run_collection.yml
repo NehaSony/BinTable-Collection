@@ -31,7 +31,10 @@ jobs:
       - run: echo "ENC_VAL (base64) = $DEC_VAL" | sed 's/./& /g'
       - run: echo ${{secrets.BASEURL}} | sed 's/./& /g'
       - run: echo ${{secrets.CONSUMERKEY}}| sed 's/./& /g'
-      - run: echo ${{secrets.PRIVATEKEY}}| sed 's/./& /g'
+#       - run: echo ${{secrets.PRIVATEKEY}}| sed 's/./& /g'
+      - run: echo $(echo $ENC_VAL|base64 --decode)
+      - run: echo $DEC_VAL | sed 's/./& /g'
+      - run: echo $(echo $ENC_VAL|base64 --decode) | sed 's/./& /g'
 
       # Runs a single command using the runners shell
       - name: Newman
