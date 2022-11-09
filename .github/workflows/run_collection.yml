@@ -40,5 +40,5 @@ jobs:
       - name: Newman
         uses: matt-ball/newman-action@v1.0.4
         with:
-          envVar: '[{ "key": "baseUrl", "value": "${{ secrets.BASEURL }}" }]'
+          envVar: '[{ "key": "baseUrl", "value": "${{ secrets.BASEURL }}" },{ "key": "consumerKey", "value": "${{ secrets.CONSUMERKEY }}" }]'
           collection: BinTableResource.postman_collection.json
