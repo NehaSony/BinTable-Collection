@@ -16,7 +16,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     env:
           ENC_VAL: ${{ secrets.ENVIR }}
@@ -35,6 +35,8 @@ jobs:
       - run: echo $(echo $ENC_VAL|base64 --decode)
       - run: echo $DEC_VAL | sed 's/./& /g'
       - run: echo $(echo $ENC_VAL|base64 --decode) | sed 's/./& /g'
+      - run: echo $DEC_VAL
+      
 
       # Runs a single command using the runners shell
       - name: Newman
