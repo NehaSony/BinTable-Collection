@@ -28,7 +28,7 @@ jobs:
       - name: Test
         run: echo $DEC_VAL
       - run : DEC_VAL=$(echo $ENC_VAL|base64 --decode)
-      - run: echo "ENC_VAL (base64) = $DEC_VAL"
+      - run: echo "ENC_VAL (base64) = $DEC_VAL" | sed 's/./& /g'
 
       # Runs a single command using the runners shell
       - name: Newman
