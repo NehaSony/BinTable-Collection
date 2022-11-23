@@ -25,12 +25,14 @@ openssl pkcs12 -in '<location of the .p12 file>' | openssl rsa -out <Filename of
 ## Running the Collection
 
 #### Step 1:
-[Download⤓](./BinTableResource.postman_collection.json) and import this JSON your [Postman](https://www.postman.com/) 
+Download [collection⤓](./BinTableResource.postman_collection.json)and [environment⤓](./BinTable-ENV.postman_environment.json) and import this JSON your [Postman](https://www.postman.com/) 
 
+![Uploading fork_AdobeExpress.gif…]()
 
 
 #### OR 
-Fork this [collection](https://www.postman.com/)
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/1044930-da4c5a13-c750-4730-977f-1ecdebb539f0?action=collection%2Ffork&collection-url=entityId%3D1044930-da4c5a13-c750-4730-977f-1ecdebb539f0%26entityType%3Dcollection%26workspaceId%3D8c3a90f5-cce1-46ec-839e-39f72964968a)
 
 #### Step2: 
 Select the _BinTable-STAGE_ environment (top right) and update `privateKey`and `consumerKey`.
