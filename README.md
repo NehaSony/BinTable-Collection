@@ -27,7 +27,7 @@ openssl pkcs12 -in '<location of the .p12 file>' | openssl rsa -out <Filename of
 #### Step 1:
 Download [collection⤓](./BinTableResource.postman_collection.json)and [environment⤓](./BinTable-ENV.postman_environment.json) and import this JSON your [Postman](https://www.postman.com/) 
 
-[https://github.com/NehaSony/BinTable-Collection/blob/main/resources/fork_AdobeExpress.gif]()
+![](https://github.com/NehaSony/BinTable-Collection/blob/main/resources/fork_AdobeExpress.gif)
 
 
 #### OR 
