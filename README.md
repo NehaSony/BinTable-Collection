@@ -2,7 +2,7 @@
 
 [![](https://developer.mastercard.com/_/_/src/global/assets/svg/mcdev-logo-dark.svg)](https://developer.mastercard.com/)
 
-
+[![Build & Run Collection](https://github.com/NehaSony/BinTable-Collection/actions/workflows/run_collection.yml/badge.svg)](https://github.com/NehaSony/BinTable-Collection/actions/workflows/run_collection.yml)
 [![](https://github.com/Mastercard/oauth1-signer-java/workflows/Build%20&%20Test/badge.svg)](https://github.com/Mastercard/oauth1-signer-java/actions?query=workflow%3A%22Build+%26+Test%22)
 ## Overview
 
