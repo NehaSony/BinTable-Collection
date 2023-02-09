@@ -1,4 +1,4 @@
-name: RunCollection
+name: Build & Run Collection
 
 # Controls when the workflow will run
 on:
