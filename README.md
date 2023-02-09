@@ -1,4 +1,4 @@
-# BinTable-Collection
+# BIN Lookup Collection
 
 [![](https://developer.mastercard.com/_/_/src/global/assets/svg/mcdev-logo-dark.svg)](https://developer.mastercard.com/)
 
